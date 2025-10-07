@@ -134,6 +134,7 @@ Your task is to implement the core logic in two files: trajectory.py and control
     In this file, you will complete the plan() method inside the Planner class.
 
     Your Goal:
+    
         Solve a trajectory optimization problem to find a dynamically feasible, time-optimal path through a series of waypoints.
 
     Requirements:
@@ -154,6 +155,7 @@ Your task is to implement the core logic in two files: trajectory.py and control
     In this file, you will complete the solve() method inside the DroneController class.
 
     Your Goal:
+
         Implement a flight controller that generates acceleration commands to accurately track the reference trajectory provided by the planner.
 
     Requirements:
