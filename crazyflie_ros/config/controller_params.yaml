@@ -1,0 +1,49 @@
+
+mpc:
+  horizon_steps: 20
+  timestep: 0.001    # 20 Hz
+  weight_position: 10.0
+  weight_velocity: 5.0
+  weight_acceleration: 1.0
+  weight_input: 0.1
+
+# PID controller (for yaw rate)
+pid:
+  timestep: 0.001    # 100 Hz
+  kp_xy: 2.3 #2.3
+  ki_xy: 0 #0
+  kd_xy: 2 #2.6
+  integrator_limit_xy: 0.5
+  kp_z: 3.05  #3.05
+  ki_z: 0.4  #00.4
+  kd_z: 2.15  #2.15
+  integrator_limit_z: 0.5
+
+
+cas_pid:
+  kp_xy: 2.3 #2.3
+  ki_xy: 0 #0
+  kd_xy: 2 #2.6
+  integrator_limit_xy: 0.5
+  kp_z: 3.05  #3.05
+  ki_z: 0.4  #00.4
+  kd_z: 2.15  #2.15
+  integrator_limit_z: 0.5
+
+  kp_vxy: 2.3 #2.3
+  ki_vxy: 0 #0
+  kd_vxy: 2 #2.6
+  integrator_limit_xy: 0.5
+  kp_vz: 3.05  #3.05
+  ki_vz: 0.4  #00.4
+  kd_vz: 2.15  #2.15
+  integrator_limit_z: 0.5
+
+
+yaw_pid:
+  timestep: 0.001
+  kp: 0.2 #0.15
+  ki: 0
+  kd: 0.1 #0.05
+  integrator_limit: 0.5
+

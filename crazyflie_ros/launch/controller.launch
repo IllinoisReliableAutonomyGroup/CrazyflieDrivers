@@ -1,0 +1,9 @@
+<launch>
+    <arg name="drone_id" default_value="karteek_drone" />
+
+    <rosparam file="$(find crazyflie_ros)/config/controller_params.yaml" command="load" ns="controller" />
+    
+    <node name="controller" pkg="crazyflie_ros" type="controller_node.py" output="screen">
+        <param name="drone_id" value="$(arg drone_id)" />
+    </node>
+</launch>

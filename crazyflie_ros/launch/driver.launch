@@ -1,0 +1,11 @@
+<launch>
+    <arg name="drone_id" default="karteek_drone" />
+    <arg name="uri" default="radio://0/80/2M" />
+
+    <rosparam file="$(find crazyflie_ros)/config/drone_params.yaml" command="load" ns="driver" />
+    
+    <node name="driver" pkg="crazyflie_ros" type="driver_node.py" output="screen">
+        <param name="uri" value="$(arg uri)" />
+        <param name="drone_id" value="$(arg drone_id)" />
+    </node>
+</launch>

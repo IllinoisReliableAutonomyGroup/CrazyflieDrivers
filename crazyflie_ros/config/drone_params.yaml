@@ -1,0 +1,26 @@
+
+
+uri: "radio://0/80/2M"
+mass: 0.030        # kg
+arm_length: 0.046  # meters
+Ixx: 1.43e-5       # kg*m^2
+Iyy: 1.43e-5       # kg*m^2
+Izz: 2.89e-5       # kg*m^2
+
+# Thrust / motor
+HOVER_THRUST_CF: 42000  
+K_THRUST: 0.000081
+max_thrust: 0.4  
+min_thrust: 0.0
+max_total_thrust: 1.6  # N (4 motors)
+thrust_coefficient: 1.91e-8
+torque_coefficient: 2.6e-9
+
+# Limits
+max_roll: 0.5      # rad
+max_pitch: 0.5     # rad
+max_yaw_rate: 6.0  # rad/s
+max_velocity: 1.0  # m/s
+max_acceleration: 6.0  # m/s^2
+gravity: 9.81  
+

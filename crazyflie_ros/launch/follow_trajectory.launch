@@ -1,0 +1,34 @@
+<launch>
+    <arg name="drone_id" default="karteek_drone" />
+    <arg name="uri" default="radio://0/80/2M" />
+
+
+    <include file="$(find mocap_vicon)/launch/vicon.launch">
+    </include>
+
+    
+
+
+    <node name="trajectory_service_node" pkg="crazyflie_ros" type="trajectory_node.py" output="screen">
+        <!-- You can override planner parameters here if needed -->
+        <!-- 
+        <param name="max_velocity" value="2.5" />
+        <param name="max_acceleration" value="12.0" /> 
+        -->
+    </node>
+
+
+    <include file="$(find crazyflie_ros)/launch/driver.launch">
+        <arg name="uri" value="$(arg uri)" />
+        <arg name="drone_id" value="$(arg drone_id)" />
+    </include>
+
+    <include file="$(find crazyflie_ros)/launch/controller.launch">
+        <arg name="drone_id" value="$(arg drone_id)" />
+    </include>
+
+
+    
+
+
+</launch>
