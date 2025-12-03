@@ -1,0 +1,4 @@
+echo 'geometry_msgs/PoseArray waypoints
+---
+bool success
+string message' > ~/cf_ws/src/crazyflie_ros/srv/PlanTrajectory.srv

@@ -1,0 +1,20 @@
+karteek@karteek-XPS-13-9305:~/cf_ws$ rosservice call /plan_trajectory "waypoints:
+  header:
+    seq: 0
+    stamp: {secs: 0, nsecs: 0}
+    frame_id: 'world'
+  poses:
+  - position: {x: 0.16, y: 1.32, z: 0.820}
+    orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0} 
+  - position: {x: 2.5766, y: -1.02365, z: 0.757011}
+    orientation: {x: 0.0, y: 0.0, z: -0.707, w: 0.707}
+  - position: {x: 0.3761, y: -2.992, z: 0.7246}
+    orientation: {x: 0.0, y: 0.0, z: 1.0, w: 0.0} 
+  - position: {x: -1.745, y: -1.098, z: 0.711}
+    orientation: {x: 0.0, y: 0.0, z: 0.707, w: 0.707}
+  - position: {x: 0.16, y: 1.32, z: 0.820}
+    orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}"
+success: True
+message: "Trajectory planned successfully! Total time: 15.77s"
+karteek@karteek-XPS-13-9305:~/cf_ws$ rosservice call /start_publishing "{}"
+

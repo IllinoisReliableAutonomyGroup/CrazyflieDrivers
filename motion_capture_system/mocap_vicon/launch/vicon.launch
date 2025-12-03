@@ -11,14 +11,7 @@
     <rosparam param="model_list">[]</rosparam>
     <remap from="vicon/cf/odom" to="/cf/odom"/>
     <remap from="vicon/cf/pose" to="/cf/pose"/>
-    <remap from="vicon/gate1/odom" to="/gate1/odom"/>
-    <remap from="vicon/gate1/pose" to="/gate1/pose"/>
-    <remap from="vicon/gate2/odom" to="/gate2/odom"/>
-    <remap from="vicon/gate2/pose" to="/gate2/pose"/>
-    <remap from="vicon/gate3/odom" to="/gate3/odom"/>
-    <remap from="vicon/gate3/pose" to="/gate3/pose"/>
-    <remap from="vicon/gate4/odom" to="/gate4/odom"/>
-    <remap from="vicon/gate4/pose" to="/gate4/pose"/>
+
     
   </node>
 </launch>
