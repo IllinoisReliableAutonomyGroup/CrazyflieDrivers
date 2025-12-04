@@ -19,7 +19,7 @@ class Controller:
 
         # Subscribers
         rospy.Subscriber('/' + drone_id + '/odom', Odometry, self.pose_callback)
-        rospy.Subscriber('/' + drone_id + '/setpoint_trajectory', MultiDOFJointTrajectory, self.trajectory_callback)
+        rospy.Subscriber('/' + drone_id + '/setpoint', MultiDOFJointTrajectory, self.trajectory_callback)
         # Publisher for acceleration commands
         self.cmd_pub = rospy.Publisher('/' + drone_id + '/cmd_acc', Accel, queue_size=10)
 
@@ -69,7 +69,7 @@ class Controller:
                 ])
 
                 reference_states = []
-                
+
                 point = self.reference_trajectory
 
                 pos = point.transforms[0].translation

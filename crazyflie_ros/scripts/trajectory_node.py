@@ -42,7 +42,7 @@ class TrajectoryNode:
         self.planner = Planner(max_velocity=max_vel, max_acceleration=max_accel)
 
         # --- Publisher ---
-        self.trajectory_pub = rospy.Publisher(f'/{self.drone_id}/setpoint_trajectory', MultiDOFJointTrajectory, queue_size=10)
+        self.trajectory_pub = rospy.Publisher(f'/{self.drone_id}/setpoint', MultiDOFJointTrajectory, queue_size=10)
 
         # --- Subscribers ---
         # Waits for the first message to consider the drone's position initialized
