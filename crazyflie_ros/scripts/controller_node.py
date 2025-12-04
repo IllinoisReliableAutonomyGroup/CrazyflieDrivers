@@ -39,7 +39,8 @@ class Controller:
         self.current_velocity = msg.twist.twist
 
     def trajectory_callback(self, msg):
-        self.reference_trajectory = msg.points
+        
+        self.reference_trajectory = msg
 
         
     def run(self):
@@ -68,20 +69,22 @@ class Controller:
                 ])
 
                 reference_states = []
-                for point in self.reference_trajectory:
-                    pos = point.transforms[0].translation
-                    vel = point.velocities[0].linear
-                    
-                    # Convert quaternion to yaw for this reference point
-                    ref_q = point.transforms[0].rotation
-                    (_, _, ref_yaw) = euler_from_quaternion([ref_q.x, ref_q.y, ref_q.z, ref_q.w])
+                
+                point = self.reference_trajectory
 
-                    # Append the state vector for this point
-                    reference_states.append(np.array([
-                        pos.x, pos.y, pos.z,
-                        vel.x, vel.y, vel.z,
-                        ref_yaw
-                    ]))
+                pos = point.transforms[0].translation
+                vel = point.velocities[0].linear
+                
+                # Convert quaternion to yaw for this reference point
+                ref_q = point.transforms[0].rotation
+                (_, _, ref_yaw) = euler_from_quaternion([ref_q.x, ref_q.y, ref_q.z, ref_q.w])
+
+                # Append the state vector for this point
+                reference_states.append(np.array([
+                    pos.x, pos.y, pos.z,
+                    vel.x, vel.y, vel.z,
+                    ref_yaw
+                ]))
 
                 if reference_states:
                     ax,ay,az, yaw_rate_cmd = self.controller.solve(current_state, reference_states) 

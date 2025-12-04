@@ -73,7 +73,7 @@ class DroneController:
         # Make sure to respect the velocity and acceleration constraints of crazyflie.
 
 
-        ax,ay,az, yaw_rate = 0,0,0
+        ax,ay,az, yaw_rate = 0,0,0,0
         return ax,ay,az, yaw_rate
 
 

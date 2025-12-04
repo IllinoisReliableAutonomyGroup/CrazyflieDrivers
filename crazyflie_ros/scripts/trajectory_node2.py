@@ -25,7 +25,7 @@ class TrajectoryNode:
         self.planner = TimeOptimalPlanner(max_velocity=max_vel, max_acceleration=max_acc)
         
         # Publisher for trajectory setpoints using a standard message type
-        self.setpoint_publisher = rospy.Publisher('/trajectory_setpoint', MultiDOFJointTrajectoryPoint, queue_size=10)
+        self.setpoint_publisher = rospy.Publisher('/cf/setpoint_trajectory', MultiDOFJointTrajectoryPoint, queue_size=10)
 
         # Services
         self.plan_service = rospy.Service('plan_trajectory', PlanTrajectory, self.plan_trajectory_callback)
