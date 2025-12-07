@@ -3,11 +3,17 @@
 import rospy
 from geometry_msgs.msg import PoseStamped, Accel, Twist
 from nav_msgs.msg import Odometry 
-from trajectory_msgs.msg import MultiDOFJointTrajectory
 from crazyflie_ros.controllers import DroneController
 import numpy as np
 from tf.transformations import euler_from_quaternion
 import time
+from trajectory_msgs.msg import MultiDOFJointTrajectory, MultiDOFJointTrajectoryPoint # Add MultiDOFJointTrajectoryPoint
+
+
+class TrajectoryPointWrapper:
+            def __init__(self, point):
+                self.points = [point]
+
 
 class Controller:
     def __init__(self, drone_id='cf'):
@@ -18,7 +24,7 @@ class Controller:
 
         # Subscribers
         rospy.Subscriber('/' + drone_id + '/odom', Odometry, self.pose_callback)
-        rospy.Subscriber('/' + drone_id + '/setpoint', MultiDOFJointTrajectory, self.trajectory_callback)
+        rospy.Subscriber('/' + drone_id + '/setpoint', MultiDOFJointTrajectoryPoint, self.trajectory_callback)
         # Publisher for acceleration commands
         self.cmd_pub = rospy.Publisher('/' + drone_id + '/cmd_acc', Accel, queue_size=10)
 
@@ -39,7 +45,12 @@ class Controller:
 
     def trajectory_callback(self, msg):
         
-        self.reference_trajectory = msg
+        #self.reference_trajectory = msg
+
+
+
+
+        self.reference_trajectory = TrajectoryPointWrapper(msg)
 
         
     def run(self):
@@ -49,7 +60,14 @@ class Controller:
         while not rospy.is_shutdown():
             rospy.loginfo_throttle(5, "[Controller] Control loop running...")
 
+            # --- ADDED DEBUGGING LINES HERE ---
+            pose_status = "Not None" if self.current_pose else "None"
+            traj_status = "Not None" if self.reference_trajectory else "None"
+            rospy.loginfo_throttle(1, f"[Controller Debug] Pose Status: {pose_status}, Traj Status: {traj_status}")
+            # --- END OF ADDED DEBUGGING LINES ---
+
             if self.current_pose and self.reference_trajectory:
+                rospy.loginfo_throttle(5, "inside controller loop base")
                 cmd_msg = Accel()
                 
 
@@ -87,6 +105,7 @@ class Controller:
 
                 
                 if reference_states:
+                    rospy.loginfo_throttle(5, "inside controller loop")
                     ax,ay,az, yaw_rate_cmd = self.controller.solve(current_state, reference_states) 
                     # Populate the Accel message
                     cmd_msg.linear.x = np.clip(ax, -7.0, 7.0)
@@ -99,7 +118,9 @@ class Controller:
                 else:
                     rospy.logwarn_throttle(5, "[Controller] Reference states are empty.")
 
-                    
+            else:
+
+                rospy.loginfo_throttle(5, "failed")       
             rate.sleep()
 
 if __name__ == '__main__':

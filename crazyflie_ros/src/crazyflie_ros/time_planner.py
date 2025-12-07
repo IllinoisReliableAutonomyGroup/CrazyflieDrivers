@@ -10,7 +10,7 @@ class TimeOptimalPlanner:
     Plans a time-optimal, minimum-snap trajectory through a series of 7-DOF gates (position + quaternion) using CasADi.
     """
 
-    def __init__(self, mass=0.032, max_velocity=1, max_acceleration=7):
+    def __init__(self, mass=0.032, max_velocity=0.8, max_acceleration=7):
         self.mass = mass
         self.g = 9.81
         self.polynom_coeffs_x = None
@@ -63,8 +63,8 @@ class TimeOptimalPlanner:
 
         # --- Cost Function: Minimize Total Time ---
         cost = ca.sum1(T)
-        time_weight = 0.1  # Lower this weight
-        snap_weight = 1.0 
+        time_weight = 0.01  # Lower this weight
+        snap_weight = 2.0 
         # Add a small regularization term for snap to ensure smoothness
         snap_cost_proxy = 0
         for i in range(self.num_segments):
@@ -80,7 +80,7 @@ class TimeOptimalPlanner:
             c_x = coeffs_x[i, :]; c_y = coeffs_y[i, :]; c_z = coeffs_z[i, :]
             Ti = T[i]
             
-            opti.subject_to(Ti >= 0.1) # Minimum segment time
+            opti.subject_to(Ti >= 0.01) # Minimum segment time
 
             # Waypoint position constraints
             p_x_start, _, _, _ = self._get_poly_expressions(order, 0, c_x)
@@ -127,7 +127,7 @@ class TimeOptimalPlanner:
                 opti.subject_to(v_z_curr == v_z_next); opti.subject_to(a_z_curr == a_z_next); opti.subject_to(j_z_curr == j_z_next)
 
             # Dynamic constraints (Velocity and Acceleration)
-            num_samples = 10
+            num_samples = 5
             for k in range(num_samples + 1):
                 t_sample = k/num_samples * Ti
                 _, vx, ax, _ = self._get_poly_expressions(order, t_sample, c_x)
