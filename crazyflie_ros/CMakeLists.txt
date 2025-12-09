@@ -45,5 +45,6 @@ catkin_install_python(PROGRAMS
   scripts/driver_node.py
   scripts/trajectory_node.py
   scripts/trajectory_node2.py
+  scripts/trajectory_plot_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
